@@ -1,0 +1,10 @@
+addpath('C:\Users\conra\OneDrive\Desktop\Facu Conrado\TERCER AÑO\Calculo numérico\2026\Algoritmos');
+A=[1 -1 2 -1;0 2 -1 1;0 0 -1 -1;0 0 0 2];
+b=[-8,6,-4,4];
+x=sust_atras(A,b);
+disp('solucion por sustitucion hacia atras: ');
+disp(x);
+Atrans=A';
+y=sust_adelante(Atrans,b);
+disp('solucion por sustitucion hacia adelante: ');
+disp(y);
