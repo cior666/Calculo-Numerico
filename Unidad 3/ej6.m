@@ -31,12 +31,27 @@ printf("it = %d\n", it);
 #para eso voy a usar el algoritmo que ya tengo implementado en el archivo gauss.m
 #para ver si tengo que aplicar alguna regla de pivoteo primero voy a revisar que
 #sean edd y sdp
-disp('Matriz A1:');
-es_edd1 = edd(A);
-es_sdp1 = sdp(A);
-disp('###########');
-disp('Matriz A2:');
-disp('DDD: ');
-es_edd2 = edd(A2);
-disp('SDP: ');
-es_sdp2 = sdp(A2);
+
+#disp('Matriz A1:');
+#es_edd1 = edd(A);
+#es_sdp1 = sdp(A);
+#disp('###########');
+#disp('Matriz A2:');
+#disp('DDD: ');
+#es_edd2 = edd(A2);
+#disp('SDP: ');
+#es_sdp2 = sdp(A2);
+
+#entonces, como A1 es EDD , puedo aplicar gauss directo sin el pivoteo.
+disp('resolucion por gauss de A1');
+x1=gauss(A,b1);
+disp('resultado:');
+disp(x1);
+
+#para A2, falla que sea EDD y SDP,entonces no pueod aplicar gauss directo
+#tengo que pivotearla o usar el gauss con pivoteo que tengo armado
+#entonces uso ese
+disp('resuelvo con gauss con pivoteo para A2');
+x2=gauss_p_sep(A2,b2);
+disp('resultado:');
+disp(x2);
