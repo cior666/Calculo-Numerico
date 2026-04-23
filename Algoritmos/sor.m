@@ -1,9 +1,9 @@
-function [x, rh, it] = sor(A, b, x0, maxit, tol, w)
+function [x, it, r, t] = sor(A, b, x0, maxit, tol, w)
 
   n = length(A(1,:));
   x = x0;   % Inicialización del vector solución
   it = 0;   % Contador de iteraciones
-
+  tic;
   while (it < maxit)
 
     for i = 1:n
@@ -35,9 +35,15 @@ function [x, rh, it] = sor(A, b, x0, maxit, tol, w)
 
     % =================================
 
+    
     x0 = x;       % Guardamos la iteración actual como base
     it = it + 1;  % Incrementamos el contador
+   
 
   endwhile
+  t=toc;
+  if it == maxit
+    disp('Se ha llegado al Nro maximo de iteraciones')
+  endif
 
 endfunction

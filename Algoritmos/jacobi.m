@@ -1,9 +1,9 @@
-function [x, r, it] = jacobi(A, b, x0, maxit, tol)
+function [x, it, r, t] = jacobi(A, b, x0, maxit, tol)
 
   n = length(A(1,:));
   x = x0;        % Inicialización de la solución
   it = 0;        % Contador de iteraciones
-
+  tic;
   while (it < maxit)
 
     for i = 1:n
@@ -37,7 +37,11 @@ function [x, r, it] = jacobi(A, b, x0, maxit, tol)
 
     x0 = x;        % Actualizamos para la próxima iteración
     it = it + 1;   % Incrementamos el contador
+    
 
   endwhile
-
+  t=toc;
+  if it == maxit
+    disp('Se ha llegado al Nro maximo de iteraciones')
+  endif
 endfunction

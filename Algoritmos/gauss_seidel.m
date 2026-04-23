@@ -1,8 +1,9 @@
-function [x, r, it] = gaussseidel(A, b, x0, maxit, tol)
+function [x, it,r,t] = gauss_seidel(A, b, x0, maxit, tol)
 
   n = length(A(1,:));
   x = x0;  % Inicialización del vector solución
   it = 0;  % Contador de iteraciones
+  tic;
 
   while (it < maxit)
 
@@ -39,5 +40,8 @@ function [x, r, it] = gaussseidel(A, b, x0, maxit, tol)
     it = it + 1;  % Incrementamos contador
 
   endwhile
-
+  t=toc;
+  if it == maxit
+    disp('CUIDADO: Se ha llegado al Nro maximo de iteraciones sin converger');
+  endif
 endfunction

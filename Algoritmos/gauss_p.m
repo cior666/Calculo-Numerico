@@ -19,6 +19,6 @@ for k=1:n-1
     A(r(k+1:n),k+1:n+1)=A(r(k+1:n),k+1:n+1)-A(r(k+1:n),k)*A(r(k),k+1:n+1);
     endfor
     x=sust_atras(A(r,:));
-endfunction
+
 
 
