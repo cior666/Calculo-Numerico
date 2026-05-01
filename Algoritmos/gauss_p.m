@@ -1,4 +1,4 @@
-fuction [x]=gauss_p(A,b)
+function [x]=gauss_p(A,b)
 n=length(b);
 A=[A b];
 r=1:n;
