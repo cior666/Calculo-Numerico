@@ -17,9 +17,9 @@ x0=1.5;
 tol=1e-3;
 
 #ahora ejecuto para g1
-[x1,h1]=puntofijo(g1,x0,1000,tol);
+[x1,h1]=puntofijo(g1,x0,tol,1000);
 fprintf('g1 convergió a x = %.6f en %d iteraciones.\n', x1, length(h1)-1);
 
 #ahora para g2
-[x2,h2]=puntofijo(g2,x0,1000,tol);
+[x2,h2]=puntofijo(g2,x0,tol,1000);
 fprintf('g2 convergió a x = %.6f en %d iteraciones.\n', x2, length(h2)-1);
