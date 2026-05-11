@@ -61,7 +61,7 @@ endfor
 mejor_w = 0.5;
 min_it = maxit; # Asume que maxit ya está definido (ej: 10000)
 # hago otro for p buscar mas fino
-for w=0.6: 0.01: 0.7
+for w=0.5: 0.01: 0.7
   [~, it, ~, ~] = sor(A_sor, b_sor, x0, maxit, tol, w);
   printf("w= %d\n", w);
   printf("it= %d\n", it);
