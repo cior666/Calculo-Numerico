@@ -3,7 +3,7 @@ addpath('C:\Users\conra\OneDrive\Desktop\Facu Conrado\TERCER AÑO\Calculo numér
 tol=5e-10;
 f=@(x) sin(x)+cos(1+x.^2)-1;
 df=@(x) cos(x) - 2 .* x .* sin(x.^2 + 1);
-x=linspace(7.6,8.2,200);
+x=linspace(0,10,2000);
 funcion=sin(x)+cos(1+x.^2)-1;
 kmax=100;
 
@@ -22,6 +22,16 @@ kmax=100;
 fprintf('la raiz en el primer intervalo es: %.10f\n',x0);
 [x2,h2]=newton(f,df,7.9,tol,kmax);
 fprintf('la raiz en el primer intervalo con newton es: %.10f\n',x2);
+
+#en otro ejercicio pide calcular el valor maximo mas cercano a 8.
+#sabemos que cuando la 2da derivada sea 0 habra un maximo en ese pto
+#entonces derivamos la derivada y usamos a la derivada como la funcion.
+ddf = @(x) -sin(x) - 2.*sin(x.^2 + 1) - 4.*(x.^2).*cos(x.^2 + 1); 
+[x_max_newton, h_newton] = newton(df, ddf, 7.9, tol, kmax);
+valor_maximo = f(x_max_newton);
+fprintf('El valor maximo de f(x) con 7 decimales es: %.7f\n', valor_maximo);
+#El valor maximo de f(x) con 7 decimales es: 0.9999565
+
 [x1,h1]=biseccion(f,8.1,8.2,tol,kmax);
 fprintf('la raiz en el 2do intervalo es: %.10f\n',x1);
 [x3,h3]=newton(f,df,8.1,tol,kmax);
