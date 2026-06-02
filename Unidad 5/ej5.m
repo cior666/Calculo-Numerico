@@ -14,59 +14,54 @@
 %como parte de reposo y se detiene al final de cada etapa, las velocidades en los extremos
 %son cero
 df=[0;0];
-%primera etapa va de 0 a 2
-t1=[0;1;2];%valores del tiempo 0 1 2
-x1=[0;2;6];%valores de x los saco de los ptos (0,0),(2,4),(6,6)
-y1=[0;4;6];%valores de y los saco de los ptos (0,0),(2,4),(6,6)
+%primera etapa va de t=0 a t=2
+% (0,0) -> (2,4) -> (6,6)  reposo en ambos extremos
+t1 = [0, 1, 2];
+x1 = [0, 2, 6];
+y1 = [0, 4, 6];
 
-%ahora obtenemos los coef a b c d para xt e yt
-[ax1,bx1,cx1,dx1]=cubic_spline_clamped(t1,x1,df);
-[ay1,by1,cy1,dy1]=cubic_spline_clamped(t1,y1,df);
+%segunda etapa, va de t=2 a t=4
+% (6,6) -> (3,2) -> (0,0)  reposo en ambos extremos
+t2 = [2, 3, 4];
+x2 = [6, 3, 0];
+y2 = [6, 2, 0];
 
-%segunda etapa, va de 2 a 4
-t2=[2;3;4];%valores del tiempo 2 3 y 4
-x2=[6;3;0];%valores de x los saco de los ptos (6,6), (3,2) , (0,0)
-y2=[6;2;0];%valores de y, los saco de los ptos (6,6), (3,2), (0,0)
 
-%ahora obtenemos los coef a b c d para etapa 2
-[ax2,bx2,cx2,dx2]=cubic_spline_clamped(t2,x2,df);
-[ay2,by2,cy2,dy2]=cubic_spline_clamped(t2,y2,df);
 
-% Tramo 1 (t de 0 a 1)
-tt1_1 = linspace(0, 1, 50);
-xx1_1 = ax1(1) + bx1(1)*(tt1_1 - 0) + cx1(1)*(tt1_1 - 0).^2 + dx1(1)*(tt1_1 - 0).^3;
-yy1_1 = ay1(1) + by1(1)*(tt1_1 - 0) + cy1(1)*(tt1_1 - 0).^2 + dy1(1)*(tt1_1 - 0).^3;
+% Llamamos a la función del profesor indicando derivadas 0 en los extremos
+[Sx1, vel_x1, acel_x1] = funcion_spline(t1, x1, 0, 0);
+[Sy1, vel_y1, acel_y1] = funcion_spline(t1, y1, 0, 0);
 
-% Tramo 2 (t de 1 a 2)
-tt1_2 = linspace(1, 2, 50);
-xx1_2 = ax1(2) + bx1(2)*(tt1_2 - 1) + cx1(2)*(tt1_2 - 1).^2 + dx1(2)*(tt1_2 - 1).^3;
-yy1_2 = ay1(2) + by1(2)*(tt1_2 - 1) + cy1(2)*(tt1_2 - 1).^2 + dy1(2)*(tt1_2 - 1).^3;
+[Sx2, vel_x2, acel_x2] = funcion_spline(t2, x2, 0, 0);
+[Sy2, vel_y2, acel_y2] = funcion_spline(t2, y2, 0, 0);
+% ========================================================
+% EVALUACIÓN AUTOMÁTICA
+% ========================================================
+% Generamos vectores de tiempo fino para graficar curvas suaves
+t_fino1 = linspace(0, 2, 100);
+t_fino2 = linspace(2, 4, 100);
 
-% -- Evaluamos Etapa 2 --
-% Tramo 1 (t de 2 a 3)
-tt2_1 = linspace(2, 3, 50);
-xx2_1 = ax2(1) + bx2(1)*(tt2_1 - 2) + cx2(1)*(tt2_1 - 2).^2 + dx2(1)*(tt2_1 - 2).^3;
-yy2_1 = ay2(1) + by2(1)*(tt2_1 - 2) + cy2(1)*(tt2_1 - 2).^2 + dy2(1)*(tt2_1 - 2).^3;
+xx1 = Sx1(t_fino1);
+yy1 = Sy1(t_fino1);
 
-% Tramo 2 (t de 3 a 4)
-tt2_2 = linspace(3, 4, 50);
-xx2_2 = ax2(2) + bx2(2)*(tt2_2 - 3) + cx2(2)*(tt2_2 - 3).^2 + dx2(2)*(tt2_2 - 3).^3;
-yy2_2 = ay2(2) + by2(2)*(tt2_2 - 3) + cy2(2)*(tt2_2 - 3).^2 + dy2(2)*(tt2_2 - 3).^3;
+xx2 = Sx2(t_fino2);
+yy2 = Sy2(t_fino2);
 
-% Juntamos todos los pedazos para tener los vectores completos
-t_total = [tt1_1, tt1_2, tt2_1, tt2_2];
-x_total = [xx1_1, xx1_2, xx2_1, xx2_2];
-y_total = [yy1_1, yy1_2, yy2_1, yy2_2];
+% Concatenamos los resultados para los gráficos (a) y (b)
+t_total = [t_fino1, t_fino2];
+x_total = [xx1, xx2];
+y_total = [yy1, yy2];
 
 % ========================================================
-% GRÁFICOS SOLICITADOS POR EL ENUNCIADO
+% GRÁFICOS SOLICITADOS [cite: 528]
 % ========================================================
 
 % (a) Gráfico X vs t
 figure(1);
 plot(t_total, x_total, 'b-', 'linewidth', 2);
 hold on;
-plot([t1; t2(2:3)], [x1; x2(2:3)], 'ro', 'markersize', 8); % Puntos nodales
+% CORRECCIÓN: Usamos coma en lugar de punto y coma para vectores fila
+plot([t1, t2(2:3)], [x1, x2(2:3)], 'ro', 'markersize', 8, 'markerfacecolor', 'r'); 
 title('(a) Posicion X vs Tiempo');
 xlabel('Tiempo t (s)'); ylabel('Posicion X');
 grid on; hold off;
@@ -75,17 +70,21 @@ grid on; hold off;
 figure(2);
 plot(t_total, y_total, 'g-', 'linewidth', 2);
 hold on;
-plot([t1; t2(2:3)], [y1; y2(2:3)], 'ro', 'markersize', 8);
+% CORRECCIÓN: Usamos coma en lugar de punto y coma
+plot([t1, t2(2:3)], [y1, y2(2:3)], 'ro', 'markersize', 8, 'markerfacecolor', 'r');
 title('(b) Posicion Y vs Tiempo');
 xlabel('Tiempo t (s)'); ylabel('Posicion Y');
 grid on; hold off;
 
-% (c) Gráfico Y vs X (Trayectoria plana completa)
+% (c) Gráfico Y vs X (Trayectoria plana completa separando etapas)
 figure(3);
-plot(x_total, y_total, 'k-', 'linewidth', 2);
+plot(xx1, yy1, 'b-', 'linewidth', 2); % Etapa 1 en Azul
 hold on;
-plot([x1; x2(2:3)], [y1; y2(2:3)], 'ro', 'markersize', 8);
+plot(xx2, yy2, 'm-', 'linewidth', 2); % Etapa 2 en Magenta
+% CORRECCIÓN: Usamos coma en lugar de punto y coma
+plot([x1, x2(2:3)], [y1, y2(2:3)], 'ro', 'markersize', 8, 'markerfacecolor', 'r');
 title('(c) Trayectoria completa en el plano XY');
 xlabel('Coordenada X'); ylabel('Coordenada Y');
-grid on;
+legend('Etapa 1 (Ida)', 'Etapa 2 (Retorno)', 'Nodos', 'Location', 'northwest');
+grid on; 
 hold off;

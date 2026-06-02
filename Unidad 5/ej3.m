@@ -18,18 +18,21 @@ end
 y_nodos_ruido=y_nodos_ideales+ruido;
 
 % Ahora resolvemos en cond ideales
-p_lagrange_ideal=polyfit(x_nodos,y_nodos_ideales,20); %es 20 porq es n-1 ->21-1=20
-y_lagrange_ideal=polyval(p_lagrange_ideal,x_real);
+% Polinomio interpolador de Lagrange (grado 20, n-1 = 21-1 = 20)
+[p_lagrange_ideal, ~] = Lagrange(x_nodos, y_nodos_ideales);
+y_lagrange_ideal = polyval(p_lagrange_ideal, x_real);
 
-%con el trazador cubico natural:
-y_spline_ideal = spline(x_nodos, y_nodos_ideales, x_real);
+% Trazador cubico NATURAL: obtenemos coeficientes y evaluamos con spline_eval
+[a_id, b_id, c_id, d_id] = cubic_spline_natural(x_nodos, y_nodos_ideales);
+y_spline_ideal = spline_eval(x_real, x_nodos, a_id, b_id, c_id, d_id);
 
-%ahora resuelvo con ruido
-p_lagrange_ruido=polyfit(x_nodos,y_nodos_ruido,20);
-y_lagrange_ruido=polyval(p_lagrange_ruido,x_real);
+% Ahora resuelvo con ruido
+[p_lagrange_ruido, ~] = Lagrange(x_nodos, y_nodos_ruido);
+y_lagrange_ruido = polyval(p_lagrange_ruido, x_real);
 
-%con el trazador cubico natural
-y_spline_ruido = spline(x_nodos, y_nodos_ruido, x_real);
+% Trazador cubico NATURAL con ruido
+[a_ru, b_ru, c_ru, d_ru] = cubic_spline_natural(x_nodos, y_nodos_ruido);
+y_spline_ruido = spline_eval(x_real, x_nodos, a_ru, b_ru, c_ru, d_ru);
 
 figure(1);
 subplot(1,2,1);
