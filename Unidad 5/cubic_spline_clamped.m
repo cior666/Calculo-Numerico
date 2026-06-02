@@ -1,11 +1,11 @@
 % x: puntos xi, i=1,2,...,n
 % y: puntos yi correspondiente a f(xi), i=1,2,...,n
 % df1 y dfn: valor de la derivada de f en x0 y xn
-function [ai,bi,ci,di] = cubic_spline_clamped(x,y,df1,dfn)
+function [ai,bi,ci,di] = cubic_spline_clamped(x,y,df)
     n = length(x);
-
+    df1 = df(1);   % Extraes f'(a)
+    dfn = df(2);   % Extraes f'(b)
     ai = y;
-
     h(1:n-1) = x(2:n) - x(1:n-1);
 
     % - Calculamos los terminos independientes
