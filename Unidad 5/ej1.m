@@ -23,3 +23,5 @@ disp(coeficientes);
 
 %Coeficientes por Vandermonde [d, c, b, a]:
 %  -2.5585e-17  -2.5000e-02   4.5000e-01   7.5000e-02
+
+%Son iguales.
