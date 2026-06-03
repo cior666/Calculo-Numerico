@@ -17,22 +17,22 @@ function [x, it,r,t] = gauss_seidel(A, b, x0, maxit, tol)
     % ==============================
 
     % ----> Criterio 1: Norma del residuo ||Ax - b|| (más estricto)
-    % r(it+1) = norm(A*x - b);
+    % r(it+1) = norm(A*x - b,inf);
     % if r(it+1) < tol
     %   break;
     % endif
 
     % ----> Criterio 2: Error absoluto infinito ||x - x0||_inf
-    % r(it+1) = norm(x - x0, inf);
-    % if r(it+1) < tol
-    %   break;
-    % endif
+     r(it+1) = norm(x - x0, inf);
+     if r(it+1) < tol
+       break;
+     endif
 
     % ----> Criterio 3: Error relativo infinito ||x - x0||_inf / ||x||_inf (activo por defecto)
-    r(it+1) = norm(x - x0, inf) / norm(x, inf);
-    if r(it+1) < tol
-      break;
-    endif
+    %r(it+1) = norm(x - x0, inf) / norm(x, inf);
+    %if r(it+1) < tol
+    %  break;
+    %endif
 
     % =================================
 

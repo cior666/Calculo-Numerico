@@ -1,4 +1,4 @@
-function [x, h] = puntofijo(g, x0, kmax, tol)
+function [x, h] = puntofijo(g, x0,tol,kmax)
   h = x0;  % Inicializamos el historial de iteraciones
   for k = 1:kmax
     x1 = g(x0);       % Nueva iteración

@@ -1,4 +1,4 @@
-function [x, h] = secante(f, xmin, xmax, kmax, tol)
+function [x, h] = secante(f, xmin, xmax, tol, kmax)
     h = [xmin, xmax]; % historial de aproximaciones
     for k = 1:kmax
         fxmin = f(xmin);

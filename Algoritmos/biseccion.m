@@ -1,9 +1,9 @@
-function [x, h] = biseccion(f, xmin, xmax, kmax, tol)
+function [x, h] = biseccion(f, xmin, xmax, tol, kmax)
   a = xmin;
   b = xmax;
   h = [];
   for k = 1:kmax
-    x = (a + b)/2;
+    x = a+(b-a)/2;
     h(end+1) = x;
     if abs(f(x)) < tol || abs(b - a)/2 < tol
       return;

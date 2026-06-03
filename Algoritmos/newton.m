@@ -1,4 +1,4 @@
-function [x, h] = newton(f, df, x0, kmax, tol)
+function [x, h] = newton(f, df, x0, tol, kmax)
     h = x0; % historial de aproximaciones
     for k = 1:kmax
         fx = f(x0);
