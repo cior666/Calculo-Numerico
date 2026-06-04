@@ -42,7 +42,6 @@ fprintf('c = %.10f\n\n',c)
 
 % evalúo el modelo ajustado en x=0
 y_mc = a/(b*exp(0)+c*0+7.5);
-
 fprintf('y(0) por minimos cuadrados = %.10f\n\n',y_mc)
 
 % calculo el spline cubico natural
