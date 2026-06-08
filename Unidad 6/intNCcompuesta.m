@@ -1,8 +1,6 @@
 function Q = intNCcompuesta(f,a,b,L,n)
-% function Q = intNCcompuesta(f,a,b,L,n)
-% aproxima la integral de f sobre [a,b]
-% utilizando la formula de Newton-Cotes compuesta
-% de n puntos, subdividiendo en L subintervalos
+% function Q = intNCcompuesta(f,a,b,L,n) aproxima la integral de f sobre [a,b]
+% utilizando la formula de Newton-Cotes compuesta de n puntos, subdividiendo en L subintervalos
 y = linspace(a,b,L+1);
 h = (b-a)/L;
 % calculamos los pesos una sola vez
