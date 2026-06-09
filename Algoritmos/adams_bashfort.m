@@ -1,4 +1,4 @@
-function [t, y] = adams_rashford(f, inter, Y0, L)
+function [t, y] = adams_bashfort(f, inter, Y0, L)
 
   t = linspace(inter(1),inter(2),L+1)';
   h = (inter(2)-inter(1))/L;
