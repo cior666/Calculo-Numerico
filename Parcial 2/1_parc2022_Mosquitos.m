@@ -5,7 +5,7 @@ t = [0 1 2 3 4 5 6];
 y = [432 599 1012 1909 2977 4190 5961];
 
 % ajuste por cuadrados minimos de grado 4
-p4 = min_cuadrados(t,y,4);
+p4 = polyfit(t,y,4);
 
 % evaluar el ajuste sobre los datos
 y_aprox = polyval(p4,t);
