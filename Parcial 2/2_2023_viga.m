@@ -36,12 +36,6 @@ disp(desplazamiento_maximo);
 %title('busqueda de y'' = 0.0019')
 %pause(15);
 
-%primer solucion es sin usar spline primer indice donde supera 0.0019
-ind = find(y(:,2) > 0.0019,1);
-% valor aproximado
-x_pend = x(ind);
-printf('x = %.2f cm\n',x_pend); %da como resultado: x = 64.44 cm el correcto es: 64,367
-
 %% primer indice donde supera 0.0019
 ind = find(y(:,2) > 0.0019,1);
 % puntos vecinos
@@ -53,7 +47,6 @@ m2 = y(ind,2);
 x_pend = x1 + (0.0019-m1)*(x2-x1)/(m2-m1);
 printf('x = %.3f cm\n',x_pend); %da como resultado: x = 64.367 cm
 
-
 % SOLUCION USANDO LAGRANGE Y BISECCION
 ind = find(y(:,2) > 0.0019,1);
 % tomo 3 puntos alrededor de la raiz
@@ -64,8 +57,6 @@ g = @(x) polyval(P,x)-0.0019;
 kmax=1000;
 x_pend = biseccion(g,xlag(1),xlag(end),1e-8,kmax);
 printf('x = %.3f cm\n',x_pend); %da como resultado: x = 64.367 cm
-
-
 
 %b) usando spline + biseccion
 
