@@ -23,5 +23,6 @@ v_exacta = sqrt(dx1(t0)^2 + dx2(t0)^2);
 % error absoluto
 error_abs = abs(v_exacta - velocidad);
 fprintf("error = %.7f\n",error_abs);
+%como el error es 0.0713, 2do decimal es la ult cifra confiable.
 %RESULTADO:
 %error = 0.0713000 la rta correcta es: 0.071
